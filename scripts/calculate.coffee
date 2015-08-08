@@ -18,13 +18,14 @@ evaluate = (operator, num1, num2) ->
     else num1 + num2
 
   #console.log("calculate: " + num1 + operator + num2 + "=" + result)
+  
   return result
 
-reduceList = (list, operator) ->
+reduceList = (list, operators) ->
   result_list = []
   for element, i in list
-    if element == operator
-      result_list.push evaluate(operator, result_list[result_list.length - 1], list[i+1])
+    if element in operators
+      result_list.push evaluate(element, result_list[result_list.length - 1], list[i+1])
       result_list.splice(result_list.length - 2, 1)
       list.splice(i+1, 1)
     else
@@ -45,10 +46,9 @@ calculate = (res) ->
         res.send "Invalid expression!"
         return
 
-  inputs = reduceList(inputs, '*')
-  inputs = reduceList(inputs, '/')
-  inputs = reduceList(inputs, '+')
-  inputs = reduceList(inputs, '-')
+  inputs = reduceList(inputs, ['*'])
+  inputs = reduceList(inputs, ['/'])
+  inputs = reduceList(inputs, ['+','-'])
 
   res.send "#{input} = #{inputs[0]}"
 
