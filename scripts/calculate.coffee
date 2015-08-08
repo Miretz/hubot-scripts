@@ -46,8 +46,7 @@ calculate = (res) ->
         res.send "Invalid expression!"
         return
 
-  inputs = reduceList(inputs, ['*'])
-  inputs = reduceList(inputs, ['/'])
+  inputs = reduceList(inputs, ['*','/'])
   inputs = reduceList(inputs, ['+','-'])
 
   res.send "#{input} = #{inputs[0]}"
